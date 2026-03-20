@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-const { copySkills } = require('../src/index.js');
+import { copySkills } from '../src/index.js';
 
 copySkills();

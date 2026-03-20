@@ -1,10 +1,10 @@
-const assert = require('assert');
-const fs = require('fs');
-const os = require('os');
-const path = require('path');
-const { test } = require('node:test');
+import assert from 'assert';
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
+import { test } from 'node:test';
 
-const { copySkills } = require('../src/index.js');
+import { copySkills } from '../src/index.js';
 
 function makeTmpDir() {
   return fs.mkdtempSync(path.join(os.tmpdir(), 'postinstall-skills-test-'));
@@ -16,7 +16,7 @@ test('does nothing when source has no skills directory', () => {
 
   copySkills({ sourceDir, targetDir });
 
-  assert.strictEqual(fs.existsSync(path.join(targetDir, 'skills')), false);
+  assert.strictEqual(fs.existsSync(path.join(targetDir, '.agents', 'skills')), false);
 });
 
 test('copies skills directory from source to target', () => {
@@ -28,7 +28,7 @@ test('copies skills directory from source to target', () => {
 
   copySkills({ sourceDir, targetDir });
 
-  const copied = path.join(targetDir, 'skills', 'hello.txt');
+  const copied = path.join(targetDir, '.agents', 'skills', 'hello.txt');
   assert.ok(fs.existsSync(copied));
   assert.strictEqual(fs.readFileSync(copied, 'utf8'), 'hello');
 });
@@ -42,7 +42,7 @@ test('copies nested skills directories', () => {
 
   copySkills({ sourceDir, targetDir });
 
-  const copied = path.join(targetDir, 'skills', 'subdir', 'nested.txt');
+  const copied = path.join(targetDir, '.agents', 'skills', 'subdir', 'nested.txt');
   assert.ok(fs.existsSync(copied));
   assert.strictEqual(fs.readFileSync(copied, 'utf8'), 'nested');
 });
@@ -57,6 +57,6 @@ test('copies multiple skill files', () => {
 
   copySkills({ sourceDir, targetDir });
 
-  assert.strictEqual(fs.readFileSync(path.join(targetDir, 'skills', 'a.txt'), 'utf8'), 'a');
-  assert.strictEqual(fs.readFileSync(path.join(targetDir, 'skills', 'b.txt'), 'utf8'), 'b');
+  assert.strictEqual(fs.readFileSync(path.join(targetDir, '.agents', 'skills', 'a.txt'), 'utf8'), 'a');
+  assert.strictEqual(fs.readFileSync(path.join(targetDir, '.agents', 'skills', 'b.txt'), 'utf8'), 'b');
 });

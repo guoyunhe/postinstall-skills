@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 /**
  * Copy skills from the source package directory to the consumer's project directory.
@@ -10,7 +10,7 @@ const path = require('path');
  * @param {string} [options.targetDir] - Root of the consumer project that ran `npm install`.
  *   Defaults to `process.env.INIT_CWD`, falling back to `process.cwd()`.
  */
-function copySkills(options = {}) {
+export function copySkills(options = {}) {
   const sourceDir = options.sourceDir || process.cwd();
   const targetDir =
     options.targetDir || process.env.INIT_CWD || process.cwd();
@@ -21,7 +21,7 @@ function copySkills(options = {}) {
     return;
   }
 
-  const skillsTarget = path.join(targetDir, 'skills');
+  const skillsTarget = path.join(targetDir, '.agents', 'skills');
 
   copyDir(skillsSource, skillsTarget);
 }
@@ -45,4 +45,3 @@ function copyDir(src, dest) {
   }
 }
 
-module.exports = { copySkills };

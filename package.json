@@ -2,12 +2,13 @@
   "name": "postinstall-skills",
   "version": "1.0.0",
   "description": "Copy skills to consumer projects when your package is installed",
-  "main": "src/index.js",
+  "type": "module",
+  "exports": "./src/index.js",
   "bin": {
     "postinstall-skills": "bin/postinstall-skills.js"
   },
   "scripts": {
     "test": "node --test"
   },
-  "license": "MIT"
+  "license": "MPL-2.0"
 }
